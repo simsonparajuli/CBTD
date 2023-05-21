@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace CBTDWeb.Models
+namespace CBTD.Models
 {
     public class Category
     {

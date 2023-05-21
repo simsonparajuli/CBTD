@@ -1,7 +1,7 @@
-﻿using CBTDWeb.Models;
+﻿using CBTD.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CBTDWeb.Data;
+namespace CBTD.DataAccess;
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

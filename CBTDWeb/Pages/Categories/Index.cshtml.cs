@@ -1,5 +1,6 @@
-using CBTDWeb.Data;
-using CBTDWeb.Models;
+using CBTD.DataAccess;
+using CBTD.Models;
+using CBTD.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,17 +8,17 @@ namespace CBTDWeb.Pages.Categories
 {
     public class IndexModel : PageModel
     {
-		private readonly ApplicationDbContext _db;  //instance of database service
-		public List<Category> objCategoryList;  //our UI front end will support showing a list of Categories
+		private readonly IUnitOfWork _unitOfWork;  //instance of UnitOfWork
+		public IEnumerable<Category> objCategoryList;  //our UI front end will support showing a list of Categories
 
-		public IndexModel(ApplicationDbContext db)  //dependency injection of database service
+		public IndexModel(IUnitOfWork unitOfWork)  //dependency injection of UnitOfWork service (which includes di for data service) 
 		{
-			_db = db;
+			_unitOfWork = unitOfWork;
 		}
 
 		public IActionResult OnGet()
 		{
-			objCategoryList = _db.Categories.ToList();
+			objCategoryList = _unitOfWork.Category.ToList();
 			return Page();
 		}
 

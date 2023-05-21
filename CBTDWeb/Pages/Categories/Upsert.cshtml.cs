@@ -1,5 +1,6 @@
-using CBTDWeb.Data;
-using CBTDWeb.Models;
+using CBTD.DataAccess;
+using CBTD.Models;
+using CBTD.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,14 +8,14 @@ namespace CBTDWeb.Pages.Categories
 {
         public class UpsertModel : PageModel
         {
-            private readonly ApplicationDbContext _db;
+            private readonly IUnitOfWork _unitOfWork;
             [BindProperty]
             public Category objCategory { get; set; }
 
 
-            public UpsertModel(ApplicationDbContext db)
+            public UpsertModel(IUnitOfWork unitOfWork)
             {
-                _db = db;
+                _unitOfWork = unitOfWork;
             }
 
             public IActionResult OnGet(int? id)
@@ -24,7 +25,7 @@ namespace CBTDWeb.Pages.Categories
                 //edit mode
                 if (id != 0)
                 {
-                    objCategory = _db.Categories.Find(id);
+                    objCategory = _unitOfWork.Category.GetById(id);
                 }
 
                 if (objCategory == null)
@@ -46,16 +47,16 @@ namespace CBTDWeb.Pages.Categories
                 //if this is a new category
                 if (objCategory.Id == 0)
                 {
-                    _db.Categories.Add(objCategory);  // Adds to memory
+                    _unitOfWork.Category.Add(objCategory);  // Adds to memory
                     TempData["success"] = "Category added Successfully";
                 }
                 //if category exists
                 else
                 {
-                    _db.Categories.Update(objCategory);
+                    _unitOfWork.Category.Update(objCategory);
                     TempData["success"] = "Category updated Successfully";
                 }
-                _db.SaveChanges();  // Saves to DB
+                _unitOfWork.Commit();  // Saves to DB
 
                 return RedirectToPage("./Index");
             }

@@ -1,4 +1,5 @@
-using CBTDWeb.Data;
+using CBTD.DataAccess;
+using CBTD.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CBTDWeb
@@ -11,9 +12,12 @@ namespace CBTDWeb
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+     
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                  builder.Configuration.GetConnectionString("DefaultConnection")
                  ));
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
             var app = builder.Build();
