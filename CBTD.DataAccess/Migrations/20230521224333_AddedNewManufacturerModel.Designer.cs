@@ -4,6 +4,7 @@ using CBTD.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CBTDWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230521224333_AddedNewManufacturerModel")]
+    partial class AddedNewManufacturerModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,21 +51,21 @@ namespace CBTDWeb.Migrations
                         new
                         {
                             Id = 1,
-                            DateModified = new DateTime(2023, 5, 21, 18, 39, 49, 644, DateTimeKind.Local).AddTicks(1541),
+                            DateModified = new DateTime(2023, 5, 21, 16, 43, 33, 62, DateTimeKind.Local).AddTicks(8472),
                             DisplayOrder = 1,
                             Name = "Beverages"
                         },
                         new
                         {
                             Id = 2,
-                            DateModified = new DateTime(2023, 5, 21, 18, 39, 49, 644, DateTimeKind.Local).AddTicks(1592),
+                            DateModified = new DateTime(2023, 5, 21, 16, 43, 33, 62, DateTimeKind.Local).AddTicks(8517),
                             DisplayOrder = 2,
                             Name = "Wine"
                         },
                         new
                         {
                             Id = 3,
-                            DateModified = new DateTime(2023, 5, 21, 18, 39, 49, 644, DateTimeKind.Local).AddTicks(1594),
+                            DateModified = new DateTime(2023, 5, 21, 16, 43, 33, 62, DateTimeKind.Local).AddTicks(8519),
                             DisplayOrder = 3,
                             Name = "Books"
                         });
