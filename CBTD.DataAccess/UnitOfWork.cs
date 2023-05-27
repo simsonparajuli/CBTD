@@ -1,5 +1,5 @@
-﻿using CBTD.Models;
-using CBTD.Models.Interfaces;
+﻿using CBTD.ApplicationCore.Interfaces;
+using CBTD.ApplicationCore.Models;
 
 namespace CBTD.DataAccess
 {
@@ -15,6 +15,8 @@ namespace CBTD.DataAccess
         private IGenericRepository<Category> _Category;
 
         private IGenericRepository<Manufacturer> _Manufacturer;
+
+        private IGenericRepository<Product> _Product;
         //ADD ADDITIONAL MODELS HERE
 
         public IGenericRepository<Category> Category
@@ -43,6 +45,19 @@ namespace CBTD.DataAccess
                 }
 
                 return _Manufacturer;
+            }
+        }
+
+        public IGenericRepository<Product> Product
+        {
+            get
+            {
+                if (_Product == null)
+                {
+                    _Product = new GenericRepository<Product>(_dbContext);
+                }
+
+                return _Product;
             }
         }
 

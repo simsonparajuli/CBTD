@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CBTD.Models.Interfaces
+namespace CBTD.ApplicationCore.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -36,19 +36,13 @@ namespace CBTD.Models.Interfaces
         Task<T> GetAsync(Expression<Func<T, bool>> predicate, bool asNotTracking = false, string includes = null);
 
         // Returns an Enumerable list of results to iterate through
-        IEnumerable<T> ToList();
 
-        /*The following returns an Enumerable list of objects to iterate through.
-        Expression is the same as the Get Method
-        A second Expression is added for an Order By (integer results)
-        Includes is the same as we’ve seen before and is used to join other objects */
-
-        IEnumerable<T> List(Expression<Func<T, bool>> predicate, Expression<Func<T, int>> orderBy = null, string includes = null);
+        IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate = null, Expression<Func<T, int>> orderBy = null, string includes = null);
 
         // Same as above but Asynchronous action
         /* Asynchronous calls are most useful when facing relatively infrequent large, expensive operations that could tie up response threads that could otherwise be servicing requests while the originator waits. For quick, common operations, async can slow things down. */
 
-        Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> predicate, Expression<Func<T, int>> orderBy = null, string includes = null);
+        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null, Expression<Func<T, int>> orderBy = null, string includes = null);
 
         // Add (Insert) a new record instance
         void Add(T entity);
