@@ -10,7 +10,6 @@ namespace CBTDWeb.Pages.Products
 
         private readonly UnitOfWork _unitOfWork;
 
-       
         public IEnumerable<Product> objProductList;
 
         public IndexModel(UnitOfWork unitOfWork)

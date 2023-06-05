@@ -1,10 +1,3 @@
-﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+﻿@page@model CBTDWeb.Pages.IndexModel@{	ViewData["Title"] = "Home page";}@foreach (var category in Model.objCategoryList)
+{	@if (Model.objProductList.Where(p => p.CategoryId == category.Id).Count() > 0)
+	{		<div class="row container pb-3 backgroundWhite">			<div class="col-12">				<div class="row">					<h2 class="text-info pl-1"><b>@category.Name</b></h2>					<div class="col-12">						<div class="row pb-3">							@foreach (var product in Model.objProductList.Where(c => c.CategoryId == category.Id))							{								<div class="col-lg-3 col-md-6">									<div class="row p-2">										<div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px;">											<div class="card">												<img src="@product.ImageUrl" class="card-img-top rounded" />												<div class="card-body">													<div class="pl-1">														<p class="card-title h5 text-primary">@product.Name   @product.Size</p>														<p class="card-title text-info">by <b>@product.Manufacturer.Name</b></p>													</div>													<div class="pl-1">														<p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>													</div>													<div class="pl-1">														<p>As low as: <b>$@product.DozenPrice.ToString("0.00")</b></p>													</div>												</div>											</div>											<div>												<a asp-page="Details" class="btn btn-primary form-control" asp-route-productId="@product.Id">													Details												</a>											</div>										</div>									</div>								</div>							}						</div>					</div>				</div>			</div>		</div>	}}

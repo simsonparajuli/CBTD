@@ -1,20 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CBTD.ApplicationCore.Models;
+using CBTD.DataAccess;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CBTDWeb.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+		private readonly UnitOfWork _unitOfWork;
+
+
+		public IEnumerable<Product> objProductList;
+
+		public IEnumerable<Category> objCategoryList;
+
+		public IndexModel(UnitOfWork unitOfWork)
+		{
+			_unitOfWork = unitOfWork;
+		}
+		public IActionResult OnGet()
         {
-            _logger = logger;
-        }
+			objProductList = _unitOfWork.Product.GetAll(null, includes: "Category,Manufacturer");
+			objCategoryList = _unitOfWork.Category.GetAll(null, c=> c.DisplayOrder,null);
+			return Page();
 
-        public void OnGet()
-        {
-
-        }
+		}
     }
 }

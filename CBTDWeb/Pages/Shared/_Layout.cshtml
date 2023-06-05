@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">CBTDWeb</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><img src ="~/images/CBTD.png" alt="logo" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,16 +25,20 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Categories/Index">Categories</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white-50 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Content Managment</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="" asp-page="/Categories/Index">Category</a>
+                                <a class="dropdown-item" asp-area="" asp-page="/Manufacturers/Index">Manufactuer</a>
+                                <a class="dropdown-item" asp-area="" asp-page="/Products/Index">Product</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-page="/Users/Index">Users</a>
+                                <a class="dropdown-item" asp-area="" asp-page="/Roles/Index">Roles</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Manufacturers/Index">Manufacturers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Products/Index">Products</a>
-                        </li>
+
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
@@ -46,11 +50,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted bg-primary">
+@*    <footer class="border-top footer text-muted bg-primary">
         <div class="container">
             &copy; 2023 - CBTDWeb - <a class ="text-muted" asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer>*@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -59,5 +63,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

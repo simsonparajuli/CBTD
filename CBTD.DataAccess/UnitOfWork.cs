@@ -17,9 +17,11 @@ namespace CBTD.DataAccess
         private IGenericRepository<Manufacturer> _Manufacturer;
 
         private IGenericRepository<Product> _Product;
-        //ADD ADDITIONAL MODELS HERE
 
-        public IGenericRepository<Category> Category
+		private IGenericRepository<ApplicationUser> _ApplicationUser;
+		//ADD ADDITIONAL MODELS HERE
+
+		public IGenericRepository<Category> Category
         {
             get
             {
@@ -61,7 +63,17 @@ namespace CBTD.DataAccess
             }
         }
 
-        public int Commit()
+
+		public IGenericRepository<ApplicationUser> ApplicationUser
+		{
+			get
+			{
+				if (_ApplicationUser == null) _ApplicationUser = new GenericRepository<ApplicationUser>(_dbContext);
+				return _ApplicationUser;
+			}
+		}
+
+		public int Commit()
         {
             return _dbContext.SaveChanges();
         }
@@ -78,5 +90,14 @@ namespace CBTD.DataAccess
             _dbContext.Dispose();
         }
 
-    }
+		int IUnitOfWork.Commit()
+		{
+			throw new NotImplementedException();
+		}
+
+		Task<int> IUnitOfWork.CommitAsync()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -35,45 +35,101 @@ namespace CBTD.DataAccess
             _dbContext.SaveChanges();
         }
 
-        public virtual T Get(Expression<Func<T, bool>> predicate, bool asNotTracking = false, string includes = null)
-        {
-            if (includes == null) // We are not joining any objects
-            {
-                if (!asNotTracking) // is set to false, we are not tracking changes
-                {
-                    return _dbContext.Set<T>().Where(predicate).AsNoTracking().FirstOrDefault();
-                }
-                else  // if I am tracking changes
-                {
-                    return _dbContext.Set<T>().Where(predicate).FirstOrDefault();
-                }
-            }
+		public virtual T Get(Expression<Func<T, bool>> predicate, bool asNotTracking = false, string includes = null)
+		{
+			if (includes == null)   // we are not joining any objects
+			{
+				if (!asNotTracking) // set to false, we're not tracking changes
+				{
+					return _dbContext.Set<T>()
+						.Where(predicate)
+						.AsNoTracking()
+						.FirstOrDefault();
+				}
 
-            else // if there are other objects to include (join)
-            {
-                IQueryable<T> queryable = _dbContext.Set<T>();
+				else // I am tracking changes
+				{
+					return _dbContext.Set<T>()
+						.Where(predicate)
+						.FirstOrDefault();
+				}
+			}
 
-                foreach (var includeProperty in includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    queryable.Include(includeProperty);
-                }
-                if (!asNotTracking) // is set to false, we are not tracking changes
-                {
-                    return queryable.Where(predicate).AsNoTracking().FirstOrDefault();
-                }
-                else // if I am tracking changes
-                {
-                    return queryable.Where(predicate).FirstOrDefault();
-                }
-            }
-        }
+			else // If other objects to include (join)
+				 // includes = "Address, Finances,Dependents"
+			{
+				IQueryable<T> queryable = _dbContext.Set<T>();
 
-        public Task<T> GetAsync(Expression<Func<T, bool>> predicate, bool asNotTracking = false, string includes = null)
-        {
-            throw new NotImplementedException();
-        }
+				foreach (var includeProperty in includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+				{
+					queryable = queryable.Include(includeProperty);
+				}
 
-        public virtual T GetById(int? id)
+				if (!asNotTracking) // set to false, we're not tracking changes
+				{
+					return queryable
+						.Where(predicate)
+						.AsNoTracking()
+						.FirstOrDefault();
+				}
+
+				else // I am tracking changes
+				{
+					return queryable
+						.Where(predicate)
+						.FirstOrDefault();
+				}
+			}
+		}
+
+		public virtual async Task<T> GetAsync(Expression<Func<T, bool>> predicate, bool asNotTracking = false, string includes = null)
+		{
+			if (includes == null)   // we are not joining any objects
+			{
+				if (!asNotTracking) // set to false, we're not tracking changes
+				{
+					return await _dbContext.Set<T>()
+						.Where(predicate)
+						.AsNoTracking()
+						.FirstOrDefaultAsync();
+				}
+
+				else // I am tracking changes
+				{
+					return await _dbContext.Set<T>()
+						.Where(predicate)
+						.FirstOrDefaultAsync();
+				}
+			}
+
+			else // If other objects to include (join)
+				 // includes = "Address, Finances,Dependents"
+			{
+				IQueryable<T> queryable = _dbContext.Set<T>();
+
+				foreach (var includeProperty in includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+				{
+					queryable = queryable.Include(includeProperty);
+				}
+
+				if (!asNotTracking) // set to false, we're not tracking changes
+				{
+					return await queryable
+						.Where(predicate)
+						.AsNoTracking()
+						.FirstOrDefaultAsync();
+				}
+
+				else // I am tracking changes
+				{
+					return await queryable
+						.Where(predicate)
+						.FirstOrDefaultAsync();
+				}
+			}
+		}
+
+		public virtual T GetById(int? id)
         {
             return _dbContext.Set<T>().Find(id);
         }
