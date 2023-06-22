@@ -21,23 +21,40 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-white-50 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Content Managment</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="" asp-page="/Categories/Index">Category</a>
-                                <a class="dropdown-item" asp-area="" asp-page="/Manufacturers/Index">Manufactuer</a>
-                                <a class="dropdown-item" asp-area="" asp-page="/Products/Index">Product</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-area="" asp-page="/Users/Index">Users</a>
-                                <a class="dropdown-item" asp-area="" asp-page="/Roles/Index">Roles</a>
-                            </div>
-                        </li>
 
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole(SD.AdminRole))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-white-50 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Content Managment</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Admin" asp-page="/Categories/Index">Category</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-page="/Manufacturers/Index">Manufactuer</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-page="/Products/Index">Product</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="Admin" asp-page="/Users/Index">Users</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-page="/Roles/Index">Roles</a>
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.ShipRole))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white-50" asp-area="Admin" asp-controller="Orders" asp-action="Index">Manage Orders</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.CustomerRole))
+
+                        {
+
+                            <li class="nav-item">
+                                <a class=nav-link asp-area="Customer" asp-page="/Cart/Index">
+                                    <i class="bi bi-cart"></i>
+                                </a>
+                            </li>
+                        }
                     </ul>
+
                     <partial name="_LoginPartial" />
                 </div>
             </div>

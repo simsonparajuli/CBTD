@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CBTD.Utility;
+using Stripe;
 
 namespace CBTDWeb
 {
@@ -30,6 +31,17 @@ namespace CBTDWeb
 			builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
 	              .AddEntityFrameworkStores<ApplicationDbContext>();
 
+			builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+
+
+			builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
+
 			builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
 
@@ -49,7 +61,9 @@ namespace CBTDWeb
             app.UseRouting();
             SeedDatabase();
 
-            app.UseAuthorization();
+			StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+
+			app.UseAuthorization();
 
             app.MapRazorPages();
 

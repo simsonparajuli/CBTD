@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CBTD.ApplicationCore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -56,6 +57,9 @@ namespace CBTD.ApplicationCore.Interfaces
         // Update all changes to an object
         void Update(T entity);
 
+		// Increment and Decrement Shopping Cart
+		int IncrementCount(ShoppingCart shoppingCart, int count);
+		int DecrementCount(ShoppingCart shoppingCart, int count);
 
-    }
+	}
 }

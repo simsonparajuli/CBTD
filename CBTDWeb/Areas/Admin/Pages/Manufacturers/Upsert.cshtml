@@ -1,0 +1,40 @@
+﻿@page
+@model CBTDWeb.Areas.Admin.Pages.Manufacturers.UpsertModel;
+@{
+}
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-dark py-2">Edit Manufacturer</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                @*<div asp-validation-summary="ModelOnly"></div>*@
+                
+                <input asp-for="objManufacturer.Name" class="form-control border-0 shadow" />
+                <label asp-for="objManufacturer.Name" class="ms-2"></label>
+                <span asp-validation-for="objManufacturer.Name" class="text-danger"></span>
+
+                @if (Model.objManufacturer.Id != 0)
+                {
+                    <input type="hidden" asp-for="objManufacturer.Id" />
+                }
+
+                <div class="row pt-2">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Update</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-page ="/Index"class="btn btn-outline-primary border  form-control">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

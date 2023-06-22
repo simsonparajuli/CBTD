@@ -1,0 +1,16 @@
+﻿@page
+@model CBTDWeb.Areas.Customer.Pages.Cart.OrderConfirmationModel;
+@{
+}
+<div class="container row pt-4">
+    <div class="col-12 text-center">
+        <h1 class="text-primary text-center">Order Placed Successfully!</h1>
+        Your Order Number is : @Model.OrderId <br /><br />
+        <img src="~/images/OrderConfirmation.png" width="65%" />
+    </div>
+    <div class="col-12 text-center" style="color:maroon">
+        <br />
+        Your order has been placed successfully! <br />
+        <a asp-page="../index">Back Home</a>
+    </div>
+</div>
