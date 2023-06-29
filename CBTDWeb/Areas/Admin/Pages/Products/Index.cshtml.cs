@@ -1,5 +1,3 @@
-using CBTD.ApplicationCore.Models;
-using CBTD.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,19 +5,9 @@ namespace CBTDWeb.Areas.Admin.Pages.Products
 {
     public class IndexModel : PageModel
     {
-
-        private readonly UnitOfWork _unitOfWork;
-
-        public IEnumerable<Product> objProductList;
-
-        public IndexModel(UnitOfWork unitOfWork)
+        public void OnGet()
         {
-            _unitOfWork = unitOfWork;
-        }
-        public IActionResult OnGet()
-        {
-            objProductList = _unitOfWork.Product.GetAll();
-            return Page();
+            // BYPASSING in lieu API Controller
         }
     }
 }
